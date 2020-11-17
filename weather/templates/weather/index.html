@@ -1,0 +1,44 @@
+{% extends 'weather/base.html' %} {% block content %}
+
+<div class="row mt-4">
+  <div class="col">
+    <h2>Add City</h2>
+    <form action="add_city/" class="form-inline" , method="POST">
+      <input
+        type="text"
+        name="content"
+        class="form-control mb-2"
+        placeholder="type here..."
+      />
+      <button type="submit" class="btn btn-primary mb-2">Enter</button>
+    </form>
+  </div>
+</div>
+<div class="row mt-4">
+  <div class="col">
+    <div class="list-group">
+      {% for w in weather %}
+      <figure class="image is-50x50">
+        <img
+          src="http://openweathermap.org/img/w/{{ w.icon }}.png"
+          alt="Image"
+        />
+      </figure>
+      {{ w.result }} with PM2.5 : {{ w.pm }}
+      <form action="delete_city/{{ w.id }}/" method="POST">
+        <a href="#" class="list-group-item list-group-item-action"
+          >{{ w.text }} <br />Outdoor temperature: {{ w.temperature }}'C<br />General
+          weather description: {{ w.descrip }}<br />
+          <div class="float-right">
+            <button type="Submit" class="btn btn-primary btn-sm btn-danger">
+              Delete
+            </button>
+          </div>
+        </a>
+      </form>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
