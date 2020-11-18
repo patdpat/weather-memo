@@ -23,21 +23,14 @@ def list_w(request):
                     }
         r2 = requests.get(create_url(w.text)).json()
         city_weather['pm']= r2['data']['aqi']
-        print(r2['data']['aqi'])
-        print(city_weather)
-
+        #append result part
         if float(city_weather['temperature']) < 13 or float(city_weather['temperature'])>31:
             city_weather['result']='Today is not safe for outdoor'
         else:
             city_weather['result']='Today is safe for outdoor'
             
         
-        
-        if float(city_weather['temperature']) < 13 or float(city_weather['temperature'])>31:
-            WH.objects.filter(text=w.text).update(temperature=city_weather['temperature'], descrip=city_weather['description'], icon=city_weather['icon'], result='Today is not safe for outdoor',pm=city_weather['pm'])
-        else:
-            WH.objects.filter(text=w.text).update(temperature=city_weather['temperature'], descrip=city_weather['description'], icon=city_weather['icon'], result='Today is safe for outdoor',pm=city_weather['pm'])
-            
+        WH.objects.filter(text=w.text).update(temperature=city_weather['temperature'], descrip=city_weather['description'], icon=city_weather['icon'], result=city_weather['result'],pm=city_weather['pm'])
 
     return render(request, 'weather/index.html', {'weather': weather})
 
@@ -55,17 +48,15 @@ def add_city(request):
             'icon' : r['weather'][0]['icon'],
     
                   }
+    r2 = requests.get(create_url(city)).json()
+    city_weather['pm']= r2['data']['aqi']
+    #append result part
     if float(city_weather['temperature']) < 13 or float(city_weather['temperature'])>31:
             city_weather['result']='Today is not safe for outdoor'
     else:
         city_weather['result']='Today is safe for outdoor'
-    
-    print(city_weather)
-    if float(city_weather['temperature']) < 13 or float(city_weather['temperature'])>31:
-            WH.objects.create(added_date=current_date, text=city_weather['city'], temperature=city_weather['temperature'], descrip=city_weather['description'], icon=city_weather['icon'], result='Today is not safe for outdoor')
-    else:
-        WH.objects.create(added_date=current_date, text=city_weather['city'], temperature=city_weather['temperature'], descrip=city_weather['description'], icon=city_weather['icon'], result='Today is safe for outdoor')
-    
+    WH.objects.create(added_date=current_date, text=city_weather['city'], temperature=city_weather['temperature'], descrip=city_weather['description'], icon=city_weather['icon'], result=city_weather['result'],pm=city_weather['pm'])
+   
     return redirect('list_w')
 
 @csrf_exempt
