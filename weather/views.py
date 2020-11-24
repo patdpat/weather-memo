@@ -66,6 +66,7 @@ def add_city(request):
 
                     }
     r2 = requests.get(create_url(city)).json()
+    print(r2)
     city_weather['pm'] = r2['data']['aqi']
 
     result = should_go_out(city_weather)
