@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+from .serializers import WeatherSerializer
+from .models import Weather
+
+class WeatherViewSet(viewsets.ModelViewSet):
+    queryset = Weather.objects.all().order_by('text')
+    serializer_class = WeatherSerializer
