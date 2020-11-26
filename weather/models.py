@@ -10,3 +10,5 @@ class WH(models.Model):
     icon = models.CharField(max_length=10)
     result = models.CharField(max_length=50)
     pm = models.CharField(max_length=50)
+    def __str__(self):
+        return self.text
