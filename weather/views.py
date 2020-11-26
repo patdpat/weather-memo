@@ -4,6 +4,7 @@ from .models import WH
 from myapi.models import Weather 
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
 
 def create_url(w_text):
@@ -89,3 +90,18 @@ def add_city(request):
 def delete_city(request, pk):
     WH.objects.filter(id=pk).delete()
     return redirect('list_w')
+
+def graph(request):
+    return render(request, 'weather/graph.html')
+def chart(request):
+    labels = []
+    data = []
+
+    for weather in WH.objects.all():
+        labels.append(weather.text)
+        data.append(weather.pm)
+    
+    return JsonResponse(data={
+        'labels': labels,
+        'data': data,
+    })
