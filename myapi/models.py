@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 class Weather(models.Model):
-    dded_date = models.DateTimeField(default=timezone.now)
+    added_date = models.DateTimeField(default=timezone.now)
     text = models.CharField(max_length=50)
     temperature = models.CharField(max_length=10)
     descrip = models.CharField(max_length=10)
@@ -11,5 +11,5 @@ class Weather(models.Model):
     pm = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.result
+        return self.text
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import requests
 from .models import WH
+from myapi.models import Weather 
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
@@ -27,10 +28,10 @@ def should_go_out(city_weather):
 
 
 def list_w(request):
-    weather = WH.objects.all().order_by('-added_date')
+    weathers = WH.objects.all().order_by('-added_date')
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=c812a2a33fd7892739ba5b4c09b2e499'
 
-    for w in weather:
+    for w in weathers:
         r = requests.get(url.format(w.text)).json()
         city_weather = {'temperature': r['main']['temp'],
                         'description': r['weather'][0]['description'],
@@ -47,8 +48,10 @@ def list_w(request):
 
         WH.objects.filter(text=w.text).update(temperature=city_weather['temperature'], descrip=city_weather[
             'description'], icon=city_weather['icon'], result=city_weather['result'], pm=city_weather['pm'])
+        Weather.objects.filter(text=w.text).update(temperature=city_weather['temperature'], descrip=city_weather[
+            'description'], icon=city_weather['icon'], result=city_weather['result'], pm=city_weather['pm'])
 
-    return render(request, 'weather/index.html', {'weather': weather})
+    return render(request, 'weather/index.html', {'weather': weathers})
 
 
 @csrf_exempt
@@ -74,6 +77,8 @@ def add_city(request):
     else:
         city_weather['result'] = 'Weather is suit for outdoor activity'
     WH.objects.create(added_date=current_date, text=city_weather['city'], temperature=city_weather['temperature'],
+                      descrip=city_weather['description'], icon=city_weather['icon'], result=city_weather['result'], pm=city_weather['pm'])
+    Weather.objects.create(added_date=current_date, text=city_weather['city'], temperature=city_weather['temperature'],
                       descrip=city_weather['description'], icon=city_weather['icon'], result=city_weather['result'], pm=city_weather['pm'])
 
     return redirect('list_w')
