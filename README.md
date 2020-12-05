@@ -1,14 +1,77 @@
-# Apipark Withedvorrakit 6110546429
+## Members
 
-# Sidtipat Kietchai 6110546046
+Apipark Withedvorrakit 6110546429
 
-# Natthaphon Rakprakobkij 6110546402
+Sidtipat Kietchai 6110546046
 
-# Kasidit Wongpaiboon 6110545422
+Natthaphon Rakprakobkij 6110546402
+
+Kasidit Wongpaiboon 6110545422
+
+Jirawadee Sampusri 6110545457
+
+# The overview of Weather-memo
+
+This application is about the weather forecast and pm2.5 that can tell you what today's weather looks like and you should go out or not, and lastly what's the current air quality is. The data source contains the weather forecast, temperature, current air quality, current weather.
+
+# How to run our project
+1. Clone the repository.
+
+```
+  $ git clone https://github.com/patdpat/weather-memo.git
+```
+
+2. Create virtualenv in the directory and activate virtualenv.
+if you do not have virtualenv, install it with this command
+
+```
+  $ python3 -m pip install --user virtualenv
+```
+then 
+
+```
+  $ virtualenv venv
+```
+
+3. Activate the venv
+
+    On MacOS and Linux:
+
+    ```
+      $ source venv/bin/activate
+    ```
+
+    On Windows:
+
+    ```
+      $ venv\Scripts\activate
+    ```
+
+5. Install all required packages and then run database migrations.
+
+```
+  pip3 install -r requirements.txt
+  python3 manage.py makemigrations
+  python3 manage.py migrate
+```
+
+6. Run the server.
+
+```
+  python3 manage.py runserver
+```
+api from application database is provided on `localhost:8000/myapi`
+
+#### Don't forget to exit the virtualenv after you finish testing.
+```
+  deactivate
+```
+
 
 # Instructions to deploy application using Jenkins
 
 # The overview of Weather-memo
+
 
 This application is about the weather forecast and pm2.5 that can tell you what today's weather is and what the current air quality is. The data source contains the weather forecast, temperature, current air quality, current weather.
 
