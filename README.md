@@ -8,6 +8,39 @@
 
 # Instructions to deploy application using Jenkins
 
+# The overview of Weather-memo
+
+This application is about the weather forecast and pm2.5 that can tell you what today's weather is and what the current air quality is. The data source contains the weather forecast, temperature, current air quality, current weather.
+
+# How to run our project
+1. Clone the repository.
+
+  $ git clone https://github.com/patdpat/weather-memo.git
+
+2. Create virtualenv in the directory and activate virtualenv.
+
+  $ virtualenv venv
+##### On MacOS and Linux:
+
+  $ source venv/bin/activate
+
+##### On Windows:
+
+  $ venv\Scripts\activate
+
+5. Install all required packages and then run database migrations.
+
+  (venv) pip3 install -r requirements.txt
+  (venv) python3 manage.py makemigrations
+  
+6. Run the server.
+
+
+  (venv) python3 manage.py runserver
+#### Don't forget to exit the virtualenv after you finish testing.
+```
+  (venv) deactivate
+
 ## Step 1: Install Jenkins and extra packages
 
 check out the contents of initial-setup.sh .
