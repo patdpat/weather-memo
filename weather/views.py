@@ -93,6 +93,7 @@ def delete_city(request, pk):
 
 def graph(request):
     return render(request, 'weather/graph.html')
+
 def chart(request):
     labels = []
     data = []
@@ -104,4 +105,16 @@ def chart(request):
     return JsonResponse(data={
         'labels': labels,
         'data': data,
+    })
+def chart2(request):
+    temp = []
+    pm = []
+
+    for weather in WH.objects.all():
+        temp.append(weather.temperature)
+        pm.append(weather.pm)
+    
+    return JsonResponse(data={
+        'labels': temp,
+        'data': pm,
     })

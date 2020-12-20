@@ -43,6 +43,39 @@
       },
     });
   });
+  $(function () {
+    var $Chart = $("#chart");
+    $.ajax({
+      url: $Chart.data("url"),
+      success: function (data) {
+        var ctx = $Chart[0].getContext("2d");
+
+  new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: [{
+            label: 'Scatter Dataset',
+            data: [{
+                x: -10,
+                y: 0
+            }, {
+                x: 0,
+                y: 10
+            }, {
+                x: 10,
+                y: 5
+            }]
+        }]
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                type: 'linear',
+                position: 'bottom'
+            }]
+        }
+    }
+});
 </script>
 
 {% endblock %}
