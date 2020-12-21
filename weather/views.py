@@ -106,15 +106,3 @@ def chart(request):
         'labels': labels,
         'data': data,
     })
-def chart2(request):
-    temp = []
-    pm = []
-
-    for weather in WH.objects.all():
-        temp.append(weather.temperature)
-        pm.append(weather.pm)
-    
-    return JsonResponse(data={
-        'labels': temp,
-        'data': pm,
-    })
